@@ -1,0 +1,41 @@
+5.3.3 Token-Based Authentication
+Session-based authentication works well for traditional web applications but has limitations. Sessions require server-side storage, creating scalability challenges in distributed systems where session data must be shared across servers. Cookies are domain-specific, so sessions do not work well for APIs serving multiple domains or mobile applications. RESTful APIs should be stateless, but session-based authentication introduces state on the server. Token-based authentication addresses these issues by storing authentication information in the token itself.
+
+How token-based authentication works
+
+The user submits login credentials; the server verifies credentials; the server generates a token containing user information; the token is sent to the client; the client stores the token (in localStorage, sessionStorage, or memory); the client includes the token in the Authorization header of subsequent requests; and the server validates the token and extracts user information.
+
+Advantages of token-based authentication
+
+Token-based authentication is stateless (the server does not need to store session data; all necessary information is in the token, making horizontal scaling straightforward), cross-domain friendly (tokens can be sent to any domain, suitable for microservices architectures and single-page applications), mobile-friendly (tokens work well with mobile applications that lack cookie support), and decoupled (the authentication server can be separate from the application server, enabling Single Sign-On implementations).
+
+5.3.4 JSON Web Tokens (JWT)
+JSON Web Token (JWT, pronounced "jot") is an open standard (RFC 7519) for securely transmitting information between parties as a JSON object. JWTs are self-contained tokens that include all necessary information about the user, eliminating the need for database lookups during request validation.
+
+JWT structure
+
+A JWT consists of three parts separated by dots: header.payload.signature.
+
+The header typically contains the signing algorithm (alg, e.g., HS256, RS256) and the token type (typ, JWT), Base64Url-encoded to form the first part:
+
+6.1.3 Build Pipeline
+A build pipeline is a series of automated steps that transform source code into a deployable application, ensuring consistent building, testing, and packaging with every change.
+
+Frontend Build Process
+
+Modern frontend builds involve several stages. Transpilation converts modern JavaScript (ES6+) into browser-compatible code via tools such as Babel. Bundling combines hundreds of JavaScript modules into fewer files using Webpack, Vite, or Parcel, reducing HTTP requests. Minification removes whitespace and comments to reduce file size. Tree shaking eliminates unused code from the final bundle. Code splitting divides the application into on-demand chunks so that users download only the code required for the current page. Asset optimisation compresses images and optimises fonts.
+
+Backend Build Process
+
+Backend builds differ in focus: dependencies are installed via package managers (pip, npm); compiled languages (Java, Go) require compilation; database schema changes are applied through migration scripts; in Django, static files are collected into a single directory for serving; and environment-specific configurations are applied.
+
+Build Environments
+
+Applications typically progress through three environments. The development environment runs on the developer's local machine with debug mode, detailed error messages, hot reloading, and test data. The staging environment mirrors production and is used for final testing with realistic data by QA teams. The production environment hosts the live application with optimised performance, disabled debug mode, real user data, and monitoring.
+
+6.2.7 Test Automation
+Test automation is the use of software to execute tests automatically, compare actual results with expected outcomes, and report findings. It replaces manual testing for repetitive test cases, offering speed (hundreds of tests in minutes), consistency (identical execution each time), reusability (negligible marginal cost per re-run), broader coverage, and the early feedback essential for CI/CD pipelines.
+
+Automation is most valuable for repetitive tests, stable features, data-intensive scenarios with many input variations, regression test suites, and performance tests requiring simulated loads. Conversely, exploratory testing (requiring human creativity), tests for rapidly changing features, one-time tests, and usability testing (requiring subjective human judgment) are better performed manually.
+
+Test automation strategy should be layered: begin with unit tests (easiest to write and maintain), then add integration tests for critical system interactions, automate only the most important E2E user journeys, maintain tests as the application evolves, and monitor test health by tracking failures, flakiness, and execution time.
